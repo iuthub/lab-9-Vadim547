@@ -1,9 +1,14 @@
 <?php
 
 namespace App;
-
-class Post
+use Illuminate\Database\Eloquent\Model;
+class Post extends Model
+{protected $fillable=['title','body'];
+public function tags()
 {
+return $this->belongsToMany('App\Tag','post_tag', 'post_id','tag_id')
+->withTimestamps();
+}
     public function getPosts($session)
     {
         if (!$session->has('posts')) {
